@@ -26,8 +26,9 @@ class Environment extends Dbase {
 		$GLOBALS['app']->COMMAND_D->doCommand($this,"look");
 	}
 	function leave() {
-		if($this.env != null) {
-			$this.env.onLeave($this);
+		if($this->env != null) {
+			$this->env->onLeave($this);
+			$this->env = null;
 		}
 	}
 }

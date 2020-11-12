@@ -16,5 +16,8 @@ class User extends Environment {
 	function shortname() {
 		return $this->get('name')."(".$this->get('id').")";
 	}
+	function quit() {
+		$GLOBALS['app']->SERVER_D->quit($this);
+	}
 }
 ?>

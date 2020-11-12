@@ -12,7 +12,14 @@ class Serverd {
 		$ret = socket_listen($this->socket,100);
 		$this->users = array();
 	}
-
+	function quit($user) {
+		$idx = array_search($user->socket,$this->sockets);
+		if($idx>=0) {
+			array_splice($this->sockets,$idx);
+			array_splice($this->users,$idx);
+			socket_close($user->socket);
+		}
+	}
 	function back_end() {
 		while(1) {
 			$rs = $this->sockets;
@@ -40,7 +47,6 @@ class Serverd {
 						$buf = socket_read($value,8192);
 						$k = array_search($value,$this->sockets);
 						if($k>=0) {
-							print_r("onCommand ".$buf."\n");
 							$this->users[$k]->onCommand($buf);
 						}
 					}
