@@ -27,6 +27,7 @@ class Serverd {
 						if($client ) {
 							require_once(MUD_LIB.'/obj/user.php');
 							$user = new User($client);
+							$user->message(HIG.file_get_contents(MUD_LIB.'/etc/welcome').NOR);
 							$user->set('name',"很不温柔");
 							$user->set("id","akuma");
 							$this->users[] = $user;
