@@ -1,0 +1,4 @@
+phplib
+这是用php模仿mudlib写的一个demo
+git : https://github.com/mud-com-cn/phplib
+demo: telnet://mud.com.cn:4001
