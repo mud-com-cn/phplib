@@ -2,3 +2,13 @@ phplib
 这是用php模仿mudlib写的一个demo
 git : https://github.com/mud-com-cn/phplib
 demo: telnet://mud.com.cn:4001
+目前支持了 
+用户登录
+look
+go
+say
+
+房间（环境容器什么的。。）
+
+还不支持save和restore
+
