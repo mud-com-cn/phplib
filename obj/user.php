@@ -7,7 +7,6 @@ class User extends Environment {
 	}
 	function onCommand($buf) {
 		//socket_write($this->socket,$buf,strlen($buf));
-		print_r("doCommand ".$buf."\n");
 		$GLOBALS['app']->COMMAND_D->doCommand($this,$buf);
 	}
 	function message($msg) {

@@ -14,7 +14,7 @@ class Environment extends Dbase {
 	function onLeave($obj) {
 		$idx = array_search($obj,$this->inv);
 		if($idx >= 0)
-			array_splice($this->inv,$idx);
+			array_splice($this->inv,$idx,1);
 	}
 	function move($obj) {
 		$obj->onMove($this);
@@ -31,5 +31,19 @@ class Environment extends Dbase {
 			$this->env = null;
 		}
 	}
+	function tell_room($msg) {
+		forEach($this->inv as $k => $v) {
+			$v->message($msg);
+		}
+	}
+	function tell_room_exclude($msg,$ob) {
+		print_r("tell_room_exclude");
+		print_r($msg);
+                forEach($this->inv as $k => $v) {
+			if($v != $ob)
+	                        $v->message($msg);
+                }
+        }
+
 }
 ?>
