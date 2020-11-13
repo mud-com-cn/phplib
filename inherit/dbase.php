@@ -6,7 +6,10 @@ class Dbase {
 		return $this->dbase[$p] = $data;
 	}
 	function get($p) {
-		return $this->dbase[$p];
+		if(array_key_exists($p,$this->dbase))
+			return $this->dbase[$p];
+		else
+			return null;
 	}
 	function add($p,$data) {
 		if(array_key_exists($p,$this->dbase)) {
@@ -25,7 +28,10 @@ class Dbase {
                 return $this->temp_dbase[$p] = $data;
         }
         function get_temp($p) {
-                return $this->temp_dbase[$p];
+		if(array_key_exists($p,$this->temp_dbase))
+	                return $this->temp_dbase[$p];
+		else
+			return null;
         }
         function add_temp($p,$data) {
                 if(array_key_exists($p,$this->temp_dbase)) {
