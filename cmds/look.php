@@ -1,5 +1,5 @@
 <?php
-class CmdLook {
+class Cmd_look {
 	function main($user,$cmd) {
 		$env = $user->env;
 		if($env) {

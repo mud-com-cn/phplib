@@ -13,12 +13,16 @@ class Serverd {
 		$this->users = array();
 	}
 	function quit($user) {
+		print_r("quit socket=".$user->socket."\n");
 		$idx = array_search($user->socket,$this->sockets);
 		if($idx>=0) {
-			array_splice($this->sockets,$idx);
-			array_splice($this->users,$idx);
+			print_r("idx=".$idx."\n");
+			print_r($this->sockets);
+			array_splice($this->sockets,$idx,1);
+			array_splice($this->users,$idx,1);
 			socket_close($user->socket);
 		}
+		print_r($this->sockets);
 	}
 	function back_end() {
 		while(1) {
@@ -34,20 +38,22 @@ class Serverd {
 						if($client ) {
 							require_once(MUD_LIB.'/obj/user.php');
 							$user = new User($client);
-							$user->message(HIG.file_get_contents(MUD_LIB.'/etc/welcome').NOR);
-							$user->set('name',"很不温柔");
-							$user->set("id","akuma");
 							$this->users[] = $user;
-							$this->sockets[] = $client;
-							require_once(MUD_LIB.'/d/center.php');
-							$startroom = new Room();
-							$user->move($startroom);
+                                                        $this->sockets[] = $client;
+							$user->set_temp("is_loging",1);
+							$user->set_temp("login_step","getid");
+							$user->message(HIG.file_get_contents(MUD_LIB."/etc/welcome").NOR);
+							$user->message(HIR."请输入您的ID：".NOR);
 						}
 					} else {
 						$buf = socket_read($value,8192);
 						$k = array_search($value,$this->sockets);
 						if($k>=0) {
-							$this->users[$k]->onCommand($buf);
+							if(strlen($buf)){
+								$this->users[$k]->onCommand($buf);
+							} else {
+								$this->quit($this->users[$k]);
+							}
 						}
 					}
 				}
