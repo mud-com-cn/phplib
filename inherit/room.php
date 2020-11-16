@@ -1,7 +1,6 @@
 <?php
 require_once(MUD_LIB.'/inherit/environment.php');
 Class Room extends Environment {
-	var $objects;
 	function is_room() {return 1;}
 	function desc() {
                 return HIY.$this->get("name")."\n".HIG.$this->get("long").NOR."\n";
@@ -18,9 +17,9 @@ Class Room extends Environment {
                 }
         }
 	function reset() {
-		$objs = $this->get("objects");
-		if(is_array($objs)) {
-			forEach($objs as $k => $v) {
+		$npcs = $this->get("npcs");
+		if(is_array($npcs)) {
+			forEach($npcs as $k => $v) {
 				for($i = 0;$i<$v;$i++) {
 					$npc = $GLOBALS['app']->NPC_D->newNpc($k);
 					$npc->move($this);

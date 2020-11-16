@@ -18,11 +18,11 @@ LONG
 		$exits["west"] = "/d/fengyun/wroad";
 		$exits["up"] = "/d/fengyun/tj";
 		$this->set("exits",$exits);
-		$objects = array();
-		$objects["/n/fengyun/testnpc"] = 1;
-		$objects["/n/fengyun/testnpc2"] = 1;
-		$objects['/n/fengyun/guard'] = 4;
-		$this->set("objects",$objects);
+		$npcs = array();
+		$npcs["/n/fengyun/testnpc"] = 1;
+		$npcs["/n/fengyun/testnpc2"] = 1;
+		$npcs['/n/fengyun/guard'] = 4;
+		$this->set("npcs",$objects);
 	}
 }
 ?>
