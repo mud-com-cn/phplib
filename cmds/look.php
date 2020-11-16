@@ -24,6 +24,8 @@ class Cmd_look {
 					if($room)
 						$this->look_room($user,$room);
 				}
+			} else {
+				$user->message("你要看什么？\n");
 			}
 		}
 		return 1;
