@@ -10,5 +10,5 @@ say
 
 房间（环境容器什么的。。）
 
-还不支持save和restore
-
+save/restore
+心跳，都能用了
