@@ -5,7 +5,16 @@ class App {
 	var $ROOM_D;
 	var $LOGIN_D;
 	var $HEARTBEAT_D;
+	var $OBJECT_D;
 	function __construct() {
+	}
+
+	function setup() {
+		$this->makeObjectTempControl();
+		require_once(MUD_LIB.'/daemons/objectd.php');
+		$this->OBJECT_D = new Objectd();
+		$this->OBJECT_D->init();	
+	
 		$this->makeCommandTempControl();
 		require_once(MUD_LIB.'/daemons/commandd.php');
 		$this->COMMAND_D = new Commandd();
@@ -34,6 +43,29 @@ class App {
 		$fd = fopen($file,'w');
 		fwrite($fd,$s);
 		fclose($fd);
+	}
+
+	function makeObjectTempControl() {
+		$tempControlFileName = MUD_LIB.'/temp/objectcontrol.php';
+		$dirname = MUD_LIB."/npcs/";
+		$files = array();
+		$d = dir($dirname);
+		while($f = $d->read()) {
+			if($f != '.' && $f != '..') {
+				$files[] = $f;
+			}
+		}
+		$str = "";
+                $str = "<?php\nclass ObjectControl {\n\tvar \$npcs = array();\n\tfunction init(){\n";
+		forEach($files as $k => $v) {
+                        $t = explode('.',$v);
+                        if(count($t) == 2 && $t[1] == 'php') {
+                                $str .= "\t\trequire_once(MUD_LIB.'/npcs/".$t[0].".php');\n";
+				$str .= "\t\t\$this->npcs['/npcs/".$t[0]."'] = new Npcs_".$t[0]."();\n";
+			}
+		}
+		$str .= "\t}\n}\n?>\n";
+                $this->logFile($tempControlFileName,$str);
 	}
 	function makeCommandTempControl() {
 		$tempControlFileName = MUD_LIB.'/temp/commandcontrol.php';
@@ -66,19 +98,24 @@ class App {
                 $files = array();
                 $d = dir($dirname);
                 while($f = $d->read()) {
-                        if($f != '.' && $f != '..') {
+                        if($f != '.' && $f != '..' && is_dir($dirname.$f)) {
                                 $files[] = $f;
                         }
                 }
                 $str = "";
                 $str = "<?php\nclass RoomControl {\n\tvar \$rooms = array();\n\tfunction init(){\n";
                 forEach($files as $k => $v) {
-                        $t = explode('.',$v);
-                        if(count($t) == 2 && $t[1] == 'php') {
-                                $str .= "\t\trequire_once(MUD_LIB.'/d/".$t[0].".php');\n";
-                                $str .= "\t\t\$this->rooms['"."/d/".$t[0]."'] = new Room_d_".$t[0]."();\n";
-                        }
-                }
+			$d2 = dir($dirname.$v."/");
+			while($f2 = $d2->read()) {
+				if($f2 != '.' && $f2 != '..' && !is_dir($f2)) {
+                        		$t = explode('.',$f2);
+		                        if(count($t) == 2 && $t[1] == 'php') {
+        		                        $str .= "\t\trequire_once(MUD_LIB.'/d/".$v."/".$t[0].".php');\n";
+                		                $str .= "\t\t\$this->rooms['"."/d/".$v."/".$t[0]."'] = new Room_d_".$v."_".$t[0]."();\n";
+						$str .= "\t\t\$this->rooms['"."/d/".$v."/".$t[0]."']->reset();\n";
+                        		}
+				}
+                }	}
                 $str .= "\t}\n}\n?>\n";
                 $this->logFile($tempControlFileName,$str);
 
