@@ -119,7 +119,7 @@ class App {
                                         $t = explode('.',$f2);
                                         if(count($t) == 2 && $t[1] == 'php') {
                                                 $str .= "\t\trequire_once(MUD_LIB.'/n/".$v."/".$t[0].".php');\n";
-                                                $str .= "\t\t\$this->rooms['"."/d/".$v."/".$t[0]."'] = new Npc_d_".$v."_".$t[0]."();\n";
+                                                $str .= "\t\t\$this->npcs['"."/n/".$v."/".$t[0]."'] = new Npc_n_".$v."_".$t[0]."();\n";
                                         }
                                 }
                 }       }

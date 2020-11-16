@@ -22,7 +22,7 @@ Class Room extends Environment {
 		if(is_array($objs)) {
 			forEach($objs as $k => $v) {
 				for($i = 0;$i<$v;$i++) {
-					$npc = $GLOBALS['app']->OBJECT_D->newObject($k);
+					$npc = $GLOBALS['app']->NPC_D->newNpc($k);
 					$npc->move($this);
 				}
 			}
