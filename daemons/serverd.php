@@ -26,7 +26,7 @@ class Serverd {
 			$rs[] = $this->socket;
 			$ws = array();
 			$e = null;
-			socket_select($rs, $ws, $e, 100);
+			socket_select($rs, $ws, $e, 1);
 			if(count($rs)) {
 				foreach($rs as $key => $value) {
 					if($value == $this->socket) {
@@ -48,12 +48,15 @@ class Serverd {
 							if(strlen($buf)){
 								$this->users[$k]->onCommand($buf);
 							} else {
-								$this->quit($this->users[$k]);
+								//$this->quit($this->users[$k]);
+								$this->users[$k]->quit();
 							}
 						}
 					}
 				}
 			}
+			// do hb:
+			$GLOBALS['app']->HEARTBEAT_D->doHeartBeat();
 		}
 	}
 }

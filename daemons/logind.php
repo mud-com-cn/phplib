@@ -23,6 +23,7 @@ class Logind {
 		$user->set_temp("login_step",0);
 		$room = $GLOBALS['app']->ROOM_D->getRoom("/d/center");
 		$user->move($room);
+		$user->setup();
 
 	}
 }
