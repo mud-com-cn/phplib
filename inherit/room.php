@@ -2,6 +2,7 @@
 require_once(MUD_LIB.'/inherit/environment.php');
 Class Room extends Environment {
 	var $objects;
+	function is_room() {return 1;}
 	function desc() {
                 return HIY.$this->get("name")."\n".HIG.$this->get("long").NOR."\n";
         }

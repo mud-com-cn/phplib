@@ -33,7 +33,7 @@ class Serverd {
 						$client = socket_accept($this->socket);
 						if($client ) {
 							require_once(MUD_LIB.'/obj/user.php');
-							$user = new UserObj($client);
+							$user = new User_object($client);
 							$this->users[] = $user;
                                                         $this->sockets[] = $client;
 							$user->set_temp("is_loging",1);

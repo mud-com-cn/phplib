@@ -2,6 +2,10 @@
 class Dbase {
 	var $dbase = array();
 	var $temp_dbase = array();
+	function is_user() {return 0;}
+	function is_npc() {return 0;}
+	function is_room() {return 0;}
+	function is_obj() {return 0;}
 	function set($p,$data) {
 		return $this->dbase[$p] = $data;
 	}

@@ -1,7 +1,8 @@
 <?php
 require_once(MUD_LIB.'/inherit/save.php');
 Class User extends Save {
-	        var $socket;
+	var $socket;
+	function is_user() {return 1;}
         function __construct($socket) {
                 $this->socket = $socket;
         }

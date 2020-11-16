@@ -1,6 +1,7 @@
 <?php
 require_once(MUD_LIB.'/inherit/environment.php');
 Class Npc extends Environment {
+	function is_npc() {return 1;}
         function __construct() {
         }
         function onCommand($buf) {
