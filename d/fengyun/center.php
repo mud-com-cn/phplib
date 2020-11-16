@@ -19,7 +19,8 @@ LONG
 		$exits["up"] = "/d/fengyun/tj";
 		$this->set("exits",$exits);
 		$objects = array();
-		$objects["/npcs/testnpc"] = 2;
+		$objects["/npcs/testnpc"] = 1;
+		$objects["/npcs/testnpc2"] = 1;
 		$objects['/npcs/guard'] = 4;
 		$this->set("objects",$objects);
 	}
