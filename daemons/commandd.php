@@ -27,6 +27,11 @@ class Commandd extends CommandControl {
 			return 1;
 		} else if($this->doGlobalAlias($user,$verbs)) {
 			return 1;
+		} else if($verbs[0][0] == '\'') {
+			$verbs[0] = substr($verbs[0],1);
+			array_unshift($verbs,"say");
+			$this->cmds[$verbs[0]]->main($user,$verbs);
+			return 1;	
 		} else {
 			$env = $user->env;
 			if($env) {
