@@ -22,7 +22,7 @@ Class User extends Save {
                 $GLOBALS['app']->SERVER_D->quit($this);
         }
         function heart_beat() {
-                $this->message($this->shortname()." HeartBteat (".HEART_BEAT." sec)\n");
+                //$this->message($this->shortname()." HeartBteat (".HEART_BEAT." sec)\n");
         }
         function setup() {
                 $GLOBALS['app']->HEARTBEAT_D->start_heartbeat($this);
