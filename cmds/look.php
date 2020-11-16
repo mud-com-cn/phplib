@@ -13,18 +13,21 @@ class Cmd_look {
 			array_shift($cmd);
 			$arg = join(" ",$cmd);
 			$env = $user->env;
-			if(!$env)
+			if(!$env) {
 				return 1;
-			if($ob = $env->find_in_inv($arg))
+			}
+			if($ob = $env->find_in_inv($arg)) {
 				$user->message($ob->shortname()."\n");
-			else {
+				return 1;
+			} else {
 				$exits = $env->get("exits");
 				if(array_key_exists($arg,$exits)) {
 					$room = $GLOBALS['app']->ROOM_D->getRoom($exits[$arg]);
-					if($room)
+					if($room) {
 						$this->look_room($user,$room);
+						return 1;
+					}
 				}
-			} else {
 				$user->message("你要看什么？\n");
 			}
 		}
