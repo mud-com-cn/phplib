@@ -4,6 +4,7 @@ class App {
 	var $COMMAND_D;
 	var $ROOM_D;
 	var $LOGIN_D;
+	var $HEARTBEAT_D;
 	function __construct() {
 		$this->makeCommandTempControl();
 		require_once(MUD_LIB.'/daemons/commandd.php');
@@ -22,6 +23,11 @@ class App {
 		require_once(MUD_LIB.'/daemons/logind.php');
 		$this->LOGIN_D = new Logind();
 		$this->LOGIN_D->init();
+
+		require_once(MUD_LIB.'/daemons/heartbeatd.php');
+                $this->HEARTBEAT_D = new Heartbeatd();
+                $this->HEARTBEAT_D->init();
+
 		
 	}
 	function logFile($file,$s) {

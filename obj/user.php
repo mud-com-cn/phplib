@@ -16,7 +16,24 @@ class User extends Environment {
 		return $this->get('name')."(".$this->get('id').")";
 	}
 	function quit() {
+		$GLOBALS['app']->HEARTBEAT_D->stop_heartbeat($this);
 		$GLOBALS['app']->SERVER_D->quit($this);
+	}
+	function save() {
+		$str = json_encode($this->dbase);
+		$this->message($str);
+	}
+	function restore() {
+
+	}
+	function query_save_file() {
+
+	}
+	function heart_beat() {
+		$this->message($this->shortname()." HeartBteat (".HEART_BEAT." sec)\n");
+	}
+	function setup() {
+		$GLOBALS['app']->HEARTBEAT_D->start_heartbeat($this);
 	}
 }
 ?>
