@@ -5,15 +5,15 @@ class App {
 	var $ROOM_D;
 	var $LOGIN_D;
 	var $HEARTBEAT_D;
-	var $OBJECT_D;
+	var $NPC_D;
 	function __construct() {
 	}
 
 	function setup() {
-		$this->makeObjectTempControl();
-		require_once(MUD_LIB.'/daemons/objectd.php');
-		$this->OBJECT_D = new Objectd();
-		$this->OBJECT_D->init();	
+		$this->makeNpcTempControl();
+		require_once(MUD_LIB.'/daemons/npcd.php');
+		$this->NPC_D = new Npcd();
+		$this->NPC_D->init();	
 	
 		$this->makeCommandTempControl();
 		require_once(MUD_LIB.'/daemons/commandd.php');
@@ -45,28 +45,6 @@ class App {
 		fclose($fd);
 	}
 
-	function makeObjectTempControl() {
-		$tempControlFileName = MUD_LIB.'/temp/objectcontrol.php';
-		$dirname = MUD_LIB."/npcs/";
-		$files = array();
-		$d = dir($dirname);
-		while($f = $d->read()) {
-			if($f != '.' && $f != '..') {
-				$files[] = $f;
-			}
-		}
-		$str = "";
-                $str = "<?php\nclass ObjectControl {\n\tvar \$npcs = array();\n\tfunction init(){\n";
-		forEach($files as $k => $v) {
-                        $t = explode('.',$v);
-                        if(count($t) == 2 && $t[1] == 'php') {
-                                $str .= "\t\trequire_once(MUD_LIB.'/npcs/".$t[0].".php');\n";
-				$str .= "\t\t\$this->npcs['/npcs/".$t[0]."'] = new Npcs_".$t[0]."();\n";
-			}
-		}
-		$str .= "\t}\n}\n?>\n";
-                $this->logFile($tempControlFileName,$str);
-	}
 	function makeCommandTempControl() {
 		$tempControlFileName = MUD_LIB.'/temp/commandcontrol.php';
 
@@ -121,5 +99,33 @@ class App {
 
         }
 
+	function makeNpcTempControl() {
+                $tempControlFileName = MUD_LIB.'/temp/npccontrol.php';
+
+                $dirname = MUD_LIB."/n/";
+                $files = array();
+                $d = dir($dirname);
+                while($f = $d->read()) {
+                        if($f != '.' && $f != '..' && is_dir($dirname.$f)) {
+                                $files[] = $f;
+                        }
+                }
+                $str = "";
+                $str = "<?php\nclass NpcControl {\n\tvar \$npcs = array();\n\tfunction init(){\n";
+                forEach($files as $k => $v) {
+                        $d2 = dir($dirname.$v."/");
+                        while($f2 = $d2->read()) {
+                                if($f2 != '.' && $f2 != '..' && !is_dir($f2)) {
+                                        $t = explode('.',$f2);
+                                        if(count($t) == 2 && $t[1] == 'php') {
+                                                $str .= "\t\trequire_once(MUD_LIB.'/n/".$v."/".$t[0].".php');\n";
+                                                $str .= "\t\t\$this->rooms['"."/d/".$v."/".$t[0]."'] = new Npc_d_".$v."_".$t[0]."();\n";
+                                        }
+                                }
+                }       }
+                $str .= "\t}\n}\n?>\n";
+                $this->logFile($tempControlFileName,$str);
+
+        }
 }
 ?>
