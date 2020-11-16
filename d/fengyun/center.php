@@ -22,7 +22,7 @@ LONG
 		$npcs["/n/fengyun/testnpc"] = 1;
 		$npcs["/n/fengyun/testnpc2"] = 1;
 		$npcs['/n/fengyun/guard'] = 4;
-		$this->set("npcs",$objects);
+		$this->set("npcs",$npcs);
 	}
 }
 ?>
