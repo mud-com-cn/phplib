@@ -13,16 +13,12 @@ class Serverd {
 		$this->users = array();
 	}
 	function quit($user) {
-		print_r("quit socket=".$user->socket."\n");
 		$idx = array_search($user->socket,$this->sockets);
 		if($idx>=0) {
-			print_r("idx=".$idx."\n");
-			print_r($this->sockets);
 			array_splice($this->sockets,$idx,1);
 			array_splice($this->users,$idx,1);
 			socket_close($user->socket);
 		}
-		print_r($this->sockets);
 	}
 	function back_end() {
 		while(1) {
