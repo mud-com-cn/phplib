@@ -4,8 +4,36 @@ class Environment extends Dbase {
 	var $inv = array();
 	var $env = null;
 	function find_in_inv($id) {
-		
-
+		$args = explode(" ",$id);
+		if(count($args > 1)) {
+			if(is_numeric($args[count($args)-1])) {
+				$num = intval($args[count($args)-1]);
+				array_pop($args);
+				$newid = join(" ",$args);
+				$c = 0;
+				for($i=count($this->inv)-1;$i>=0;$i--) {
+					if($this->inv[$i]->get("id") == $newid) {
+						$c++;
+						if($c==$num) {
+							return $this->inv[$i];
+						}
+					}
+				}
+				return null;
+			} else {
+				for($i=count($this->inv)-1;$i>=0;$i--) {
+					if($this->inv[$i]->get("id") == $id)
+						return $this->inv[$i];
+				}
+				return null;
+			}
+		} else {
+			for($i=count($this->inv)-1;$i>=0;$i--) {
+				if($this->inv[$i]->get("id") == $id)
+					return $this->inv[$i];
+			}
+			return null;
+		}
 	}
 
 	function onMove($obj) {
@@ -23,7 +51,8 @@ class Environment extends Dbase {
 			$this->env->onLeave($this);
 		}
 		$this->env = $obj;
-		$GLOBALS['app']->COMMAND_D->doCommand($this,"look");
+		if($this->is_user())
+			$GLOBALS['app']->COMMAND_D->doCommand($this,"look");
 	}
 	function leave() {
 		if($this->env != null) {

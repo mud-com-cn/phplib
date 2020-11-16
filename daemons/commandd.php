@@ -17,6 +17,7 @@ class Commandd extends CommandControl {
 	}
 	function doCommand($user,$cmd) {
 		$cmd = trim($cmd);
+		print_r($cmd."\n");
 		if($user->get_temp("is_loging")) {
 			return $GLOBALS['app']->LOGIN_D->doLoginCmd($user,$cmd);
 		}
