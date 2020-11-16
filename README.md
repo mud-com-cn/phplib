@@ -15,3 +15,5 @@ daemon基本还没有，刚有容器，有俩房间，有一个look指令。。�
 就完成了。。。
 
 增加了heart_beat，处理方法和mudos类似，在backend的select后边去处理。
+
+增加了save/restore相关函数

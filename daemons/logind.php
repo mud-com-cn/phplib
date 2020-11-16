@@ -8,6 +8,10 @@ class Logind {
 		switch($user->get_temp("login_step")) {
 		case "getid":
 			$user->set("id",$cmd);
+			if($user->restore()) {
+				$this->enterWorld($user);
+				return;
+			}
 			$user->set_temp("login_step","getname");
 			$user->message("请输入中文名：");
 			break;
@@ -15,6 +19,7 @@ class Logind {
 			$user->set("name",$cmd);
 			$user->message("进入世界。\n");
 			$this->enterWorld($user);
+			$user->save();
 			break;
 		}
 	}

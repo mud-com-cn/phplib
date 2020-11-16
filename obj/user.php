@@ -1,6 +1,6 @@
 <?php
-require_once(MUD_LIB.'/inherit/environment.php');
-class User extends Environment {
+require_once(MUD_LIB.'/inherit/save.php');
+class User extends Save {
 	var $socket;
 	function __construct($socket) {
 		$this->socket = $socket;
@@ -16,18 +16,9 @@ class User extends Environment {
 		return $this->get('name')."(".$this->get('id').")";
 	}
 	function quit() {
+		$this->save();
 		$GLOBALS['app']->HEARTBEAT_D->stop_heartbeat($this);
 		$GLOBALS['app']->SERVER_D->quit($this);
-	}
-	function save() {
-		$str = json_encode($this->dbase);
-		$this->message($str);
-	}
-	function restore() {
-
-	}
-	function query_save_file() {
-
 	}
 	function heart_beat() {
 		$this->message($this->shortname()." HeartBteat (".HEART_BEAT." sec)\n");
