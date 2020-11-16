@@ -6,8 +6,8 @@ class Cmd_look {
 			$user->message(HIB.$env->desc().NOR);
 			$inv = $env->inv;
 			$user->message("    这里有\n");
-			foreach($inv as $k => $v) {
-				$user->message(HIG.$v->shortname().NOR."\n");
+			for($i=count($inv)-1;$i>=0;$i--) {
+				$user->message($inv[$i]->shortname()."\n");
 			}
 			$exits = $env->get("exits");
 			if($exits) {
