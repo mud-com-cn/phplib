@@ -6,10 +6,16 @@ class App {
 	var $LOGIN_D;
 	var $HEARTBEAT_D;
 	var $NPC_D;
+	var $EMOTE_D;
 	function __construct() {
 	}
 
 	function setup() {
+		require_once(MUD_LIB.'/daemons/emoted.php');		
+		$this->EMOTE_D = new Emoted();
+		$this->EMOTE_D->init();
+
+
 		$this->makeNpcTempControl();
 		require_once(MUD_LIB.'/daemons/npcd.php');
 		$this->NPC_D = new Npcd();
