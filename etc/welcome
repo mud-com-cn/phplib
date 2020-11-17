@@ -19,3 +19,11 @@ save/restore
 房间 和 npc
 
 加了emote机制，添加了一些emote（从mud的emote数据搬家过来了一些，bite pout 可以测试用）
+
+做了个简单权限 $user->user_level();
+npc 0
+user 1
+wizard 2
+对应了/cmds下的目录 std usr wiz
+
+目前还没有wizardd 所以logind的时候做了硬编码，如你猜测的。。。akuma是wizard 。。哈哈哈

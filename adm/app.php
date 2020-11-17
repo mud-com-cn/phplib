@@ -59,23 +59,62 @@ class App {
 	function makeCommandTempControl() {
 		$tempControlFileName = MUD_LIB.'/temp/commandcontrol.php';
 
-		$dirname = MUD_LIB."/cmds/";
-		$files = array();
-		$d = dir($dirname);
-		while($f = $d->read()) {
-			if($f != '.' && $f != '..') {
-				$files[] = $f;
-                	}
-		}
 		$str = "";
-		$str = "<?php\nclass CommandControl {\n\tvar \$cmds = array();\n\tfunction init(){\n";
+		$str = "<?php\nclass CommandControl {\n\tvar \$cmdsStd = array();\n\tvar \$cmdsUsr = array();\n\tvar \$cmdsWiz = array();\n\tfunction init(){\n";
+
+		$dirname = MUD_LIB."/cmds/std";
+                $files = array();
+                $d = dir($dirname);
+                while($f = $d->read()) {
+                        if($f != '.' && $f != '..') {
+                                $files[] = $f;
+                        }
+                }
 		forEach($files as $k => $v) {
 			$t = explode('.',$v);
 			if(count($t) == 2 && $t[1] == 'php') {
-				$str .= "\t\trequire_once(MUD_LIB.'/cmds/".$t[0].".php');\n";
-				$str .= "\t\t\$this->cmds['".$t[0]."'] = new Cmd_".$t[0]."();\n";
+				$str .= "\t\trequire_once(MUD_LIB.'/cmds/std/".$t[0].".php');\n";
+				$str .= "\t\t\$cmdOb = new Cmd_".$t[0]."();\n";
+				$str .= "\t\t\$this->cmdsStd['".$t[0]."'] = \$cmdOb;\n";
+				$str .= "\t\t\$this->cmdsUsr['".$t[0]."'] = \$cmdOb;\n";
+				$str .= "\t\t\$this->cmdsWiz['".$t[0]."'] = \$cmdOb;\n";
 			}
 		}
+
+		$dirname = MUD_LIB."/cmds/usr";
+                $files = array();
+                $d = dir($dirname);
+                while($f = $d->read()) {
+                        if($f != '.' && $f != '..') {
+                                $files[] = $f;
+                        }
+                }
+                forEach($files as $k => $v) {
+                        $t = explode('.',$v);
+                        if(count($t) == 2 && $t[1] == 'php') {
+                                $str .= "\t\trequire_once(MUD_LIB.'/cmds/usr/".$t[0].".php');\n";
+                                $str .= "\t\t\$cmdOb = new Cmd_".$t[0]."();\n";
+                                $str .= "\t\t\$this->cmdsUsr['".$t[0]."'] = \$cmdOb;\n";
+                                $str .= "\t\t\$this->cmdsWiz['".$t[0]."'] = \$cmdOb;\n";
+                        }
+                }
+		$dirname = MUD_LIB."/cmds/wiz";
+                $files = array();
+                $d = dir($dirname);
+                while($f = $d->read()) {
+                        if($f != '.' && $f != '..') {
+                                $files[] = $f;
+                        }
+                }
+                forEach($files as $k => $v) {
+                        $t = explode('.',$v);
+                        if(count($t) == 2 && $t[1] == 'php') {
+                                $str .= "\t\trequire_once(MUD_LIB.'/cmds/wiz/".$t[0].".php');\n";
+                                $str .= "\t\t\$cmdOb = new Cmd_".$t[0]."();\n";
+                                $str .= "\t\t\$this->cmdsWiz['".$t[0]."'] = \$cmdOb;\n";
+                        }
+                }
+
 		$str .= "\t}\n}\n?>\n";
 		$this->logFile($tempControlFileName,$str);
 

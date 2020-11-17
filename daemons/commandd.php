@@ -15,6 +15,35 @@ class Commandd extends CommandControl {
 		$this->globalalias['d'] = "go down";
 		$this->globalalias['l'] = "look";
 	}
+	function findCmd($user,$cmd) {
+		$userlevel = $user->user_level();
+		switch($userlevel) {
+		case 0:
+			if(array_key_exists($cmd,$this->cmdsStd)) {
+				return $this->cmdsStd[$cmd];
+			} else {
+				return null;
+			}
+			break;
+		case 1:
+			if(array_key_exists($cmd,$this->cmdsUsr)) {
+                                return $this->cmdsUsr[$cmd];
+                        } else {
+                                return null;
+                        }
+                        break;
+		case 2:
+			if(array_key_exists($cmd,$this->cmdsWiz)) {
+                                return $this->cmdsWiz[$cmd];
+                        } else {
+                                return null;
+                        }
+                        break;
+		default :
+			return null;
+			break;
+		}
+	}
 	function doCommand($user,$cmd) {
 		$cmd = trim($cmd);
 		print_r($cmd."\n");
@@ -22,8 +51,8 @@ class Commandd extends CommandControl {
 			return $GLOBALS['app']->LOGIN_D->doLoginCmd($user,$cmd);
 		}
 		$verbs = explode(" ",$cmd);
-		if(array_key_exists($verbs[0],$this->cmds)) {
-			$this->cmds[$verbs[0]]->main($user,$verbs);
+		if($cmdOb = $this->findCmd($user,$verbs[0])) {
+			$cmdOb->main($user,$verbs);
 			return 1;
 		} else if($this->doGlobalAlias($user,$verbs)) {
 			return 1;
@@ -64,8 +93,8 @@ class Commandd extends CommandControl {
 			$verbs[0] = $this->globalalias[$verbs[0]];
 			$temp = join(" ",$verbs);
 			$temp = explode(" ",$temp);
-			if(array_key_exists($temp[0],$this->cmds)) {
-				$this->cmds[$temp[0]]->main($user,$temp);
+			if($cmdOb = $this->findCmd($user,$temp[0])) {
+				$cmdOb->main($user,$temp);
 				return 1;
 			}
 		}
