@@ -16,7 +16,7 @@ class Cmd_go {
 						$user->move($GLOBALS['app']->ROOM_D->getRoom($exits[$arg[1]]));
 						$user->env->tell_room_exclude($user->shortname()."进来了。\n",$user);
 					} else {
-						$user->message("这里没有明显的出口。\n");
+						$user->message("这里没有这个方向的出口。\n");
 					}
 				}
 			}
