@@ -27,3 +27,6 @@ wizard 2
 对应了/cmds下的目录 std usr wiz
 
 目前还没有wizardd 所以logind的时候做了硬编码，如你猜测的。。。akuma是wizard 。。哈哈哈
+
+
+好了。。。。写了个脚本把FY4的风云城搬家过来了。
