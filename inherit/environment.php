@@ -45,6 +45,8 @@ class Environment extends Save {
 			array_splice($this->inv,$idx,1);
 	}
 	function move($obj) {
+		if(!$obj)
+			return 0;
 		$obj->onMove($this);
 		if($this->env == null) {
 		} else {
@@ -53,6 +55,7 @@ class Environment extends Save {
 		$this->env = $obj;
 		if($this->is_user())
 			$GLOBALS['app']->COMMAND_D->doCommand($this,"look");
+		return 1;
 	}
 	function leave() {
 		if($this->env != null) {
