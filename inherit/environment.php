@@ -1,6 +1,6 @@
 <?php
-require_once(MUD_LIB.'/inherit/dbase.php');
-class Environment extends Dbase {
+require_once(MUD_LIB.'/inherit/save.php');
+class Environment extends Save {
 	var $inv = array();
 	var $env = null;
 	function find_in_inv($id) {

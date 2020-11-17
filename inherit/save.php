@@ -1,6 +1,6 @@
 <?php
-require_once(MUD_LIB.'/inherit/environment.php');
-Class Save extends Environment {
+require_once(MUD_LIB.'/inherit/dbase.php');
+Class Save extends Dbase {
         function save_file($f,$s)
         {
                 $fd = fopen($f,'w');
@@ -35,9 +35,12 @@ Class Save extends Environment {
 
         }
         function query_save_file() {
-                return MUD_LIB."/data/".$this->get('id')[0]."/".$this->get('id').".o";
+		if($this->is_user()) {
+                	return MUD_LIB."/data/".$this->get('id')[0]."/".$this->get('id').".o";
+		} else {
+			return MUD_LIB."/data/wrongsave.o";
+		}
         }
-
 
 }
 
