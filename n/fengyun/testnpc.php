@@ -10,7 +10,7 @@ Class Npc_n_fengyun_testnpc extends Npc {
 		$GLOBALS['app']->CALLOUT_D->start_call_out($this,'msg_say',5);
 	} 
 	function msg_say() {
-		$this->env->tell_room($this->shortname()."正在使用call_out向房间喊话。\n");
+		$this->env->tell_room($this->shortname()."正在使用call_out向房间喊话。(call_out 5)\n");
 		$GLOBALS['app']->CALLOUT_D->start_call_out($this,'msg_say',5);
 	}
 }
