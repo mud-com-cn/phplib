@@ -7,10 +7,15 @@ class App {
 	var $HEARTBEAT_D;
 	var $NPC_D;
 	var $EMOTE_D;
+	var $CALLOUT_D;
 	function __construct() {
 	}
 
 	function setup() {
+		require_once(MUD_LIB.'/daemons/calloutd.php');
+                $this->CALLOUT_D = new Calloutd();
+                $this->CALLOUT_D->init();
+
 		require_once(MUD_LIB.'/daemons/emoted.php');		
 		$this->EMOTE_D = new Emoted();
 		$this->EMOTE_D->init();

@@ -58,6 +58,8 @@ class Serverd {
 			}
 			// do hb:
 			$GLOBALS['app']->HEARTBEAT_D->doHeartBeat();
+			// do callout
+			$GLOBALS['app']->CALLOUT_D->doCallout();
 		}
 	}
 }

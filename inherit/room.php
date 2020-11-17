@@ -23,6 +23,7 @@ Class Room extends Environment {
 				for($i = 0;$i<$v;$i++) {
 					$npc = $GLOBALS['app']->NPC_D->newNpc($k);
 					$npc->move($this);
+					$npc->reset();
 				}
 			}
 		}

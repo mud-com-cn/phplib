@@ -6,6 +6,9 @@ class Dbase {
 	function is_npc() {return 0;}
 	function is_room() {return 0;}
 	function is_obj() {return 0;}
+	function reset() {
+		return 1;
+	}
 	function set($p,$data) {
 		return $this->dbase[$p] = $data;
 	}
