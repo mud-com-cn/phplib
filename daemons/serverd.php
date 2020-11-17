@@ -11,6 +11,7 @@ class Serverd {
 		$ret = socket_bind($this->socket,0,MUD_PORT);
 		$ret = socket_listen($this->socket,100);
 		$this->users = array();
+		$this->sockets = array();
 	}
 	function quit($user) {
 		$idx = array_search($user->socket,$this->sockets);

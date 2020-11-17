@@ -49,7 +49,14 @@ class Commandd extends CommandControl {
 	
 			}
 		}
-		$user->message("什么？\n");
+		$emote = $verbs[0];
+		$v = $verbs;
+		array_shift($v);
+		$target = join(" ",$v);
+		if($GLOBALS['app']->EMOTE_D->doEmote($user,$emote,$target)) {
+		} else {
+			$user->message("什么？\n");
+		}
 		return 1;
 	}
 	function doGlobalAlias($user,$verbs) {
