@@ -12,3 +12,10 @@ say
 
 save/restore
 心跳，都能用了
+
+实现了从id查找房间里的物品
+
+重新整理了/d /n 的结构和对应daemon的写法
+房间 和 npc
+
+加了emote机制，添加了一些emote（从mud的emote数据搬家过来了一些，bite pout 可以测试用）
