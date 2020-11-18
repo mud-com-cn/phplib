@@ -5,7 +5,7 @@ class Cmd_enable {
 			$str = "您当前激发的技能有:\n";
 			$enable = $user->skillenabled;
 			forEach($enable as $k => $v) {
-				$str .= sprintf("-%30s  :  %s\n",$k,$v);
+				$str .= sprintf("%-30s  :  %s\n",$k,$v);
 			}
 			$user->message($str);
 			return 1;
