@@ -10,6 +10,7 @@ class App {
 	var $CALLOUT_D;
 	var $SKILL_D;
 	var $COMBAT_D;
+	var $CHAR_D;
 	function __construct() {
 	}
 
@@ -18,6 +19,10 @@ class App {
                 require_once(MUD_LIB.'/daemons/skilld.php');
                 $this->SKILL_D = new Skilld();
                 $this->SKILL_D->init();
+
+		require_once(MUD_LIB.'/daemons/chard.php');
+                $this->CHAR_D = new Chard();
+                $this->CHAR_D->init();
 
 		require_once(MUD_LIB.'/daemons/calloutd.php');
                 $this->CALLOUT_D = new Calloutd();
