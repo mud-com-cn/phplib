@@ -17,6 +17,9 @@ LONG
 		$exits["east"] = "/d/fengyun/ecloud2";
 		$exits["west"] = "/d/fengyun/fysquare";
 		$this->set("exits",$exits);
+		$npcs = array();
+                $npcs['/n/fengyun/guard'] = 1;
+                $this->set("npcs",$npcs);
 	}
 }
 ?>

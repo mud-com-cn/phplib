@@ -16,7 +16,7 @@ Class UserSkill extends Environment {
                          $this->skills[$skillid] = array($level,0);
                 }
         }
-	function query_skill_level($skillid){
+	function get_skill_level($skillid){
 		if(array_key_exists($skillid,$this->skills)) {
 			return $this->skills[$skillid][0];
 		} else {
@@ -26,6 +26,18 @@ Class UserSkill extends Environment {
         function get_skill_list() {
                 return $this->skills;
         }
+	function get_skill_enabled($basic)
+	{
+		$basicOb = $GLOBALS['app']->SKILL_D->getSkill($basic);
+		if(!$basicOb)
+			return null;
+		if(array_key_exists($basic,$this->skillenabled)) {
+			$skillOb = $GLOBALS['app']->SKILL_D->getSkill($this->skillenabled[$basic]);
+			return $skillOb;
+		} else {
+			return $basicOb;
+		}
+	}
 	function enable_skill($basic,$skill) {
 		$basicOb = $GLOBALS['app']->SKILL_D->getSkill($basic);
 		$skillOb = $GLOBALS['app']->SKILL_D->getSkill($skill);
@@ -45,14 +57,15 @@ Class UserSkill extends Environment {
 		if(!in_array($basic,$enable)) {
 			return -5;
 		}
-		if(!$this->query_skill_level($basic)) {
+		if(!$this->get_skill_level($basic)) {
 			return -6;
 		}
-		if(!$this->query_skill_level($skill)) {
+		if(!$this->get_skill_level($skill)) {
                         return -7;
                 }
 		$this->skillenabled[$basic] = $skill;
 		return 1;
 	}
+	
 }
 ?>

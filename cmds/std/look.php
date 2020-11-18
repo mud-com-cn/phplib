@@ -17,7 +17,7 @@ class Cmd_look {
 				return 1;
 			}
 			if($ob = $env->find_in_inv($arg)) {
-				$user->message($ob->shortname()."\n");
+				$this->look_object($user,$ob);
 				return 1;
 			} else {
 				$exits = $env->get("exits");
@@ -33,6 +33,9 @@ class Cmd_look {
 		}
 		return 1;
 		
+	}
+	function look_object($user,$ob) {
+		$user->message($ob->shortname()."\n");
 	}
 	function look_room($user,$room) {
 		$user->message(HIB.$room->desc().NOR);

@@ -18,21 +18,21 @@ class Commandd extends CommandControl {
 	function findCmd($user,$cmd) {
 		$userlevel = $user->user_level();
 		switch($userlevel) {
-		case 0:
+		case USER_LEVEL_NPC:
 			if(array_key_exists($cmd,$this->cmdsStd)) {
 				return $this->cmdsStd[$cmd];
 			} else {
 				return null;
 			}
 			break;
-		case 1:
+		case USER_LEVEL_USER:
 			if(array_key_exists($cmd,$this->cmdsUsr)) {
                                 return $this->cmdsUsr[$cmd];
                         } else {
                                 return null;
                         }
                         break;
-		case 2:
+		case USER_LEVEL_WIZ:
 			if(array_key_exists($cmd,$this->cmdsWiz)) {
                                 return $this->cmdsWiz[$cmd];
                         } else {

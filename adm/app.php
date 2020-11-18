@@ -9,6 +9,7 @@ class App {
 	var $EMOTE_D;
 	var $CALLOUT_D;
 	var $SKILL_D;
+	var $COMBAT_D;
 	function __construct() {
 	}
 
@@ -25,6 +26,10 @@ class App {
 		require_once(MUD_LIB.'/daemons/emoted.php');		
 		$this->EMOTE_D = new Emoted();
 		$this->EMOTE_D->init();
+
+		require_once(MUD_LIB.'/daemons/combatd.php');
+                $this->COMBAT_D = new Combatd();
+                $this->COMBAT_D->init();
 
 
 		$this->makeNpcTempControl();

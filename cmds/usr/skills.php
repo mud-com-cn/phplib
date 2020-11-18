@@ -1,13 +1,39 @@
 <?php
 class Cmd_skills {
 	function main($user,$arg) {
-		$skills = $user->get_skill_list();
-		$skillenabled = $user->skillenabled;
+		if(count($arg)<=1) {
+			$ob = $user;
+		} else {
+			array_shift($arg);
+                        $arg = join(" ",$arg);
+                        $env = $user->env;
+                        if(!$env) {
+				$ob = $user;
+                        }
+                        if($ob = $env->find_in_inv($arg)) {
+                        } else {
+				$ob = $user;
+			}
+		}
+		if($ob != $user) {
+			if($ob->user_level()< USER_LEVEL_NPC) {
+				$user->message("对方不是活物，没有技能！\n");
+				return 1;
+			}
+		}
+		if($user->user_level()< USER_LEVEL_WIZ) {
+			if($ob != $user) {
+				$user->message("你不是wizard，不能查看别人的技能。\n");
+				return 1;
+			}
+		}
+		$skills = $ob->get_skill_list();
+		$skillenabled = $ob->skillenabled;
 		$enabled = array();
 		forEach($skillenabled as $k=>$v) {
 			$enabled[] = $v;
 		}	
-		$str = "您的技能如下:\n";
+		$str = $ob->shortname()."的技能如下:\n";
 		print_r($enabled);
 
 		forEach($skills as $k=>$v) {

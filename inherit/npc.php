@@ -1,7 +1,8 @@
 <?php
-require_once(MUD_LIB.'/inherit/userskill.php');
-Class Npc extends UserSkill {
+require_once(MUD_LIB.'/inherit/attack.php');
+Class Npc extends Attack {
 	function is_npc() {return 1;}
+	function user_level() {return USER_LEVEL_NPC;}
         function __construct() {
         }
         function onCommand($buf) {
@@ -16,7 +17,13 @@ Class Npc extends UserSkill {
         function quit() {
         }
         function heart_beat() {
-                $this->message($this->shortname()." HeartBteat (".HEART_BEAT." sec)\n");
+                //$this->message($this->shortname()." HeartBteat (".HEART_BEAT." sec)\n");
+                if(count($this->enemies)) {
+                        $enemy = $this->enemies[rand(0,count($this->enemies)-1)];
+                        if($enemy->env == $this->env) {
+                                $this->do_attack($enemy);
+                        }
+                }
         }
         function setup() {
                 //$GLOBALS['app']->HEARTBEAT_D->start_heartbeat($this);

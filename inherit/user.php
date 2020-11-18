@@ -1,7 +1,8 @@
 <?php
-require_once(MUD_LIB.'/inherit/userskill.php');
-Class User extends UserSkill {
+require_once(MUD_LIB.'/inherit/attack.php');
+Class User extends Attack {
 	var $socket;
+	function user_level() {return $this->get("IS_WIZARD")?USER_LEVEL_WIZ:USER_LEVEL_USER;}
 	function is_user() {return 1;}
         function __construct($socket) {
                 $this->socket = $socket;
@@ -23,6 +24,12 @@ Class User extends UserSkill {
         }
         function heart_beat() {
                 //$this->message($this->shortname()." HeartBteat (".HEART_BEAT." sec)\n");
+		if(count($this->enemies)) {
+			$enemy = $this->enemies[rand(0,count($this->enemies)-1)];
+			if($enemy->env == $this->env) {
+				$this->do_attack($enemy);
+			}
+		}
         }
         function setup() {
                 $GLOBALS['app']->HEARTBEAT_D->start_heartbeat($this);

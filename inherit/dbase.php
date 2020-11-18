@@ -6,7 +6,7 @@ class Dbase {
 	function is_npc() {return 0;}
 	function is_room() {return 0;}
 	function is_obj() {return 0;}
-	function user_level() {return 0;}
+	function user_level() {return USER_LEVEL_NONE;}
 	function reset() {
 		return 1;
 	}
