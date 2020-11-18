@@ -4,6 +4,7 @@ class Skill_default_parry extends Skill {
 	function __construct() {
 		$this->set("skillid","parry");
 		$this->set("skillname","基础防御");
+		$this->set("is-basic",1);
 	}
 }
 ?>

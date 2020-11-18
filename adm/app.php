@@ -145,7 +145,7 @@ class App {
                                         $t = explode('.',$f2);
                                         if(count($t) == 2 && $t[1] == 'php') {
                                                 $str .= "\t\trequire_once(MUD_LIB.'/skills/".$v."/".$t[0].".php');\n";
-                                                $str .= "\t\t\$this->skills['".$t[0]."'] = new Skill_".$v."_".$t[0]."();\n";
+                                                $str .= "\t\t\$this->skills['".$t[0]."'] = new Skill_".$v."_".str_replace("-","_",$t[0])."();\n";
                                         }
                                 }
                 }       }

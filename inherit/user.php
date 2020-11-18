@@ -31,6 +31,7 @@ Class User extends UserSkill {
                 $str  = "";
 		$str .= "dbase = ".json_encode($this->dbase)."\n";
 		$str .= "skills = ".json_encode($this->skills)."\n";
+		$str .= "skillenabled = ".json_encode($this->skillenabled)."\n";
                 $this->asure_file($this->query_save_file());
                 $this->save_file($this->query_save_file(),$str);
         
@@ -60,6 +61,10 @@ Class User extends UserSkill {
 					$data = json_decode($str,true);
                                         $this->skills = $data;
 					break;
+				case "skillenabled":
+                                        $data = json_decode($str,true);
+                                        $this->skillenabled = $data;
+                                        break;
 				default :
 					break;
 				}
