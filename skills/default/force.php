@@ -4,6 +4,7 @@ class Skill_default_force extends Skill {
 	function __construct() {
 		$this->set("skillid","force");
 		$this->set("skillname","基础内功");
+		$this->set("is-basic",1);
 	}
 }
 ?>
