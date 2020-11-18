@@ -2,7 +2,12 @@
 class Cmd_enable {
 	function main($user,$cmd) {
 		if(count($cmd)<3) {
-			$user->message("参数错误，应该用 enable basickskill skill\n");
+			$str = "您当前激发的技能有:\n";
+			$enable = $user->skillenabled;
+			forEach($enable as $k => $v) {
+				$str .= sprintf("-%30s  :  %s\n",$k,$v);
+			}
+			$user->message($str);
 			return 1;
 		} else {
 			$basic = $cmd[1];
