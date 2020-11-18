@@ -8,10 +8,16 @@ class App {
 	var $NPC_D;
 	var $EMOTE_D;
 	var $CALLOUT_D;
+	var $SKILL_D;
 	function __construct() {
 	}
 
 	function setup() {
+		$this->makeSkillTempControl();
+                require_once(MUD_LIB.'/daemons/skilld.php');
+                $this->SKILL_D = new Skilld();
+                $this->SKILL_D->init();
+
 		require_once(MUD_LIB.'/daemons/calloutd.php');
                 $this->CALLOUT_D = new Calloutd();
                 $this->CALLOUT_D->init();
@@ -119,6 +125,35 @@ class App {
 		$this->logFile($tempControlFileName,$str);
 
 	}
+	function makeSkillTempControl() {
+                $tempControlFileName = MUD_LIB.'/temp/skillcontrol.php';
+
+                $dirname = MUD_LIB."/skills/";
+                $files = array();
+                $d = dir($dirname);
+                while($f = $d->read()) {
+                        if($f != '.' && $f != '..' && is_dir($dirname.$f)) {
+                                $files[] = $f;
+                        }
+                }
+                $str = "";
+                $str = "<?php\nclass SkillControl {\n\tvar \$skills = array();\n\tfunction init(){\n";
+                forEach($files as $k => $v) {
+                        $d2 = dir($dirname.$v."/");
+                        while($f2 = $d2->read()) {
+                                if($f2 != '.' && $f2 != '..' && !is_dir($f2)) {
+                                        $t = explode('.',$f2);
+                                        if(count($t) == 2 && $t[1] == 'php') {
+                                                $str .= "\t\trequire_once(MUD_LIB.'/skills/".$v."/".$t[0].".php');\n";
+                                                $str .= "\t\t\$this->skills['".$t[0]."'] = new Skill_".$v."_".$t[0]."();\n";
+                                        }
+                                }
+                }       }
+                $str .= "\t}\n}\n?>\n";
+                $this->logFile($tempControlFileName,$str);
+
+        }
+
 	function makeRoomTempControl() {
                 $tempControlFileName = MUD_LIB.'/temp/roomcontrol.php';
 

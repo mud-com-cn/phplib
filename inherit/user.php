@@ -1,6 +1,6 @@
 <?php
-require_once(MUD_LIB.'/inherit/environment.php');
-Class User extends Environment {
+require_once(MUD_LIB.'/inherit/userskill.php');
+Class User extends UserSkill {
 	var $socket;
 	function is_user() {return 1;}
         function __construct($socket) {

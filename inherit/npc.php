@@ -1,6 +1,6 @@
 <?php
-require_once(MUD_LIB.'/inherit/environment.php');
-Class Npc extends Environment {
+require_once(MUD_LIB.'/inherit/userskill.php');
+Class Npc extends UserSkill {
 	function is_npc() {return 1;}
         function __construct() {
         }
