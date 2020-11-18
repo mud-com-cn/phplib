@@ -27,5 +27,48 @@ Class User extends UserSkill {
         function setup() {
                 $GLOBALS['app']->HEARTBEAT_D->start_heartbeat($this);
         }
+	function save() {
+                $str  = "";
+		$str .= "dbase = ".json_encode($this->dbase)."\n";
+		$str .= "skills = ".json_encode($this->skills)."\n";
+                $this->asure_file($this->query_save_file());
+                $this->save_file($this->query_save_file(),$str);
+        
+	}
+	function restore() {
+                if(file_exists($this->query_save_file())) {
+                        $f = file_get_contents($this->query_save_file());
+			$ff = explode("\n",$f);
+			forEach($ff as $k=>$v) {
+				$temp = explode(" = ",$v);
+				if(count($temp)<=1) 
+					continue;
+				if(count($temp) == 2) {
+					$key = $temp[0];
+					$str = $temp[1];
+				} else {
+					$key = $temp[0];
+					array_shift($temp);
+					$str = join(" = ",$temp); //处理特殊情况，存档里有" = "的。。。
+				}
+				switch($key) {
+				case "dbase":
+                        		$data = json_decode($str,true);
+                  	      		$this->dbase = $data;
+					break;
+				case "skills":
+					$data = json_decode($str,true);
+                                        $this->skills = $data;
+					break;
+				default :
+					break;
+				}
+			}
+                        return 1;
+                } else {
+                        return 0;
+                }
+
+        }
 }
 ?>
