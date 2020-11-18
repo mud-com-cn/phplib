@@ -36,7 +36,8 @@ class Logind {
                                 return ;
                         }
 			$user->set("name",$cmd);
-			$user->message("进入世界。\n");
+			$GLOBALS['app']->CHAR_D->init_new_user($user);
+			$user->message("欢迎新玩家进入".MUD_NAME."。\n");
 			$this->enterWorld($user);
 			$user->save();
 			break;
