@@ -51,16 +51,23 @@ class Commandd extends CommandControl {
 			return $GLOBALS['app']->LOGIN_D->doLoginCmd($user,$cmd);
 		}
 		$verbs = explode(" ",$cmd);
+		print_r("doCommand() 1\n");
 		if($cmdOb = $this->findCmd($user,$verbs[0])) {
+		print_r("doCommand() 2\n");
 			$cmdOb->main($user,$verbs);
 			return 1;
 		} else if($this->doGlobalAlias($user,$verbs)) {
+		print_r("doCommand() 3\n");
+			return 1;
+		} else if(!strlen($cmd)){
 			return 1;
 		} else if($verbs[0][0] == '\'') {
 			$verbs[0] = substr($verbs[0],1);
 			array_unshift($verbs,"say");
-			$this->cmds[$verbs[0]]->main($user,$verbs);
-			return 1;	
+			if($cmdOb = $this->findCmd($user,$verbs[0])) {
+				$cmdOb->main($user,$verbs);
+				return 1;	
+			}
 		} else {
 			$env = $user->env;
 			if($env) {
