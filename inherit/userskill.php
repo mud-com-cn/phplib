@@ -3,6 +3,22 @@ require_once(MUD_LIB.'/inherit/environment.php');
 Class UserSkill extends Environment {
         var $skills = array();
 	var $skillenabled = array();
+	function get_max($p) {
+		switch($p) {
+		case "jing":
+			return 100;
+		case "qi":
+			return 100;
+		case "shen":
+			return 100;
+		case "neili":
+			return 50;
+		case "fali":
+			return 50;
+		case "jingli":
+			return 50;
+		}
+	}
         function set_skill($skillid,$level) {
                 $skillOb = $GLOBALS['app']->SKILL_D->getSkill($skillid);
                 if(!$skillOb) {

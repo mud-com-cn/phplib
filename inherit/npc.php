@@ -4,6 +4,7 @@ Class Npc extends Attack {
 	function is_npc() {return 1;}
 	function user_level() {return USER_LEVEL_NPC;}
         function __construct() {
+		$GLOBALS['app']->CHAR_D->init_new_npc($this);
         }
         function onCommand($buf) {
                 //socket_write($this->socket,$buf,strlen($buf));
