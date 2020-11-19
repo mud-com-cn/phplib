@@ -14,6 +14,8 @@ class Cmd_hp {
 			} else {
 				$ob = $user;
 			}
+		} else {
+			$ob = $user;
 		}
 		$dbase = $ob->dbase;
 		$str = $ob->shortname()."的属性如下：\n";

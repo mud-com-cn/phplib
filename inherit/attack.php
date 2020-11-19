@@ -8,6 +8,13 @@ Class Attack extends UserSkill {
 		$this->set("jing",1);
 		$this->set("qi",1);
 		$this->set("shen",1);
+		$e = $this->get_temp("last_damage_from");
+		if($e) {
+			if($this->user_level <= USER_LEVEL_NPC)
+				$e->add("NPS",1);
+			else
+				$e->add("PKS",1);
+		}
 	}
 	function remove_all_enemy() {
 		$e = $this->enemies;
@@ -22,6 +29,7 @@ Class Attack extends UserSkill {
 			$this->add($type,-$dmg);
 			if($ob) {
 				$this->add_enemy($ob);
+				$this->set_temp("last_damage_from",$ob);
 			}
 			return 1;
 		}
@@ -59,7 +67,7 @@ Class Attack extends UserSkill {
 	function remove_enemy($ob) {
 		$idx = array_search($ob,$this->enemies);
 		if($idx >= 0) {
-			unset($this->enemies[$idx]);
+			array_splice($this->enemies,$idx,1);
 		}
 		if($ob->user_level()>= USER_LEVEL_NPC)
 			$ob->to_remove_enemy($this);
@@ -67,7 +75,7 @@ Class Attack extends UserSkill {
 	function to_remove_enemy($ob) {
                 $idx = array_search($ob,$this->enemies);
                 if($idx >= 0) {
-                        unset($this->enemies[$idx]);
+                        array_splice($this->enemies,$idx,1);
                 }
         }
 

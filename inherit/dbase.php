@@ -18,7 +18,7 @@ class Dbase {
 		if(array_key_exists($p,$this->dbase))
 			return $this->dbase[$p];
 		else
-			return null;
+			return 0;
 	}
 	function add($p,$data) {
 		if(array_key_exists($p,$this->dbase)) {
@@ -40,7 +40,7 @@ class Dbase {
 		if(array_key_exists($p,$this->temp_dbase))
 	                return $this->temp_dbase[$p];
 		else
-			return null;
+			return 0;
         }
         function add_temp($p,$data) {
                 if(array_key_exists($p,$this->temp_dbase)) {
