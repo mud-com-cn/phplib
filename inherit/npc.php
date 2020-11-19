@@ -19,6 +19,11 @@ Class Npc extends Attack {
         }
         function heart_beat() {
                 //$this->message($this->shortname()." HeartBteat (".HEART_BEAT." sec)\n");
+		if($this->get("jing")<0 || $this->get("qi")<0 || $this->get("shen")<0) {
+                        $this->die();
+			return ;
+                }
+
                 if(count($this->enemies)) {
                         $enemy = $this->enemies[rand(0,count($this->enemies)-1)];
                         if($enemy->env == $this->env) {

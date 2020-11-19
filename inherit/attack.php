@@ -2,6 +2,30 @@
 require_once(MUD_LIB.'/inherit/userskill.php');
 Class Attack extends UserSkill {
 	var $enemies = array();
+	function die() {
+		$this->remove_all_enemy();
+		$this->env->tell_room($this->shortname().HIR."死了！！\n".NOR);
+		$this->set("jing",1);
+		$this->set("qi",1);
+		$this->set("shen",1);
+	}
+	function remove_all_enemy() {
+		$e = $this->enemies;
+		forEach($e as $k=>$v) {
+			$this->remove_enemy($v);
+		}
+	}
+	function receive_damage($dmg,$type,$ob) {
+		if($type != "jing" && $type != "qi" && $type != "shen") {
+			return 0;
+		} else {
+			$this->add($type,-$dmg);
+			if($ob) {
+				$this->add_enemy($ob);
+			}
+			return 1;
+		}
+	}
 	function do_attack($ob) {
 		//$this->env->tell_room($this->shortname()."向".$ob->shortname()."进行了一次攻击。\n");
 		$GLOBALS['app']->COMBAT_D->do_attack($this,$ob);

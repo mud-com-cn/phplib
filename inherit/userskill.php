@@ -39,6 +39,21 @@ Class UserSkill extends Environment {
 			return null;
 		}
 	}
+	function get_basic_level_enabled($basicid){
+		$blv = 0;
+		$alv = 0;
+                if(array_key_exists($basicid,$this->skills)) {
+			$blv = $this->skills[$basicid][0];
+			if(array_key_exists($basicid,$this->skillenabled)) {
+				$skid = $this->skillenabled[$basicid];
+				if(array_key_exists($skid,$this->skills)) {
+					$alv = $this->skills[$skid][0];
+				}
+			}
+                }
+		return floor($blv/2)+$alv;
+        }
+
         function get_skill_list() {
                 return $this->skills;
         }

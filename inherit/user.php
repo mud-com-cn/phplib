@@ -88,8 +88,12 @@ Class User extends Attack {
 	}
         function heart_beat() {
                 //$this->message($this->shortname()." HeartBteat (".HEART_BEAT." sec)\n");
+		if($this->get("jing")<0 || $this->get("qi")<0 || $this->get("shen")<0) {
+			$this->die();
+			return;
+		}
 		$this->add_temp("heal_up",1);
-		if($this->get_temp("heal_up")>= 2) {
+		if($this->get_temp("heal_up")>= 10+rand(0,5)) { // 
 			$this->heal_up();
 			$this->set_temp("heal_up",0);
 		}
