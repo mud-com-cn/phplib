@@ -13,7 +13,7 @@ Class Npc extends Attack {
         function message($msg) {
         }
         function shortname() {
-                return HIG.$this->get('name')."(".$this->get('id').")".NOR;
+                return HIG.$this->get('name')."(".$this->get('id').")".($this->get("is-ghost")?"<鬼魂>":"").NOR;
         }
         function quit() {
         }

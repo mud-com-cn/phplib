@@ -9,7 +9,6 @@ class Cmd_look {
 				$this->look_room($user,$env);
 			return 1;
 		} else if(count($cmd) >= 2) {
-			print_r($cmd);
 			array_shift($cmd);
 			$arg = join(" ",$cmd);
 			$env = $user->env;

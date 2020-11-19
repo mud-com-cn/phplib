@@ -15,7 +15,7 @@ Class User extends Attack {
                 socket_write($this->socket,$msg,strlen($msg));
         }
         function shortname() {
-                return HIY.$this->get('name')."(".$this->get('id').")".NOR;
+                return HIY.$this->get('name')."(".$this->get('id').")".($this->get("is-ghost")?"<鬼魂>":"").NOR;
         }
         function quit() {
                 $this->save();

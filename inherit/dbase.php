@@ -7,6 +7,10 @@ class Dbase {
 	function is_room() {return 0;}
 	function is_obj() {return 0;}
 	function user_level() {return USER_LEVEL_NONE;}
+	function message($msg) {}
+	function shortname() {
+		return $this->get("name")."(".$this->get("id").")";
+	}
 	function reset() {
 		return 1;
 	}

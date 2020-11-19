@@ -10,10 +10,21 @@ Class Attack extends UserSkill {
 		$this->set("shen",1);
 		$e = $this->get_temp("last_damage_from");
 		if($e) {
-			if($this->user_level <= USER_LEVEL_NPC)
+			if($this->user_level() <= USER_LEVEL_NPC)
 				$e->add("NPS",1);
 			else
 				$e->add("PKS",1);
+		}
+		require_once(MUD_LIB."/obj/corpse.php");
+		$corpse = new Corpse_object();
+		$corpse->init($this->get("name"));
+		$corpse->move($this->env);
+		if($this->user_level() <= USER_LEVEL_NPC) {
+			$this->leave();
+			unset($this);
+		} else {
+			$this->set("is-ghost",1);
+			$this->move($GLOBALS['app']->ROOM_D->getRoom(DEATH_ROOM));
 		}
 	}
 	function remove_all_enemy() {

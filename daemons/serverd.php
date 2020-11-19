@@ -33,7 +33,7 @@ class Serverd {
 					if($value == $this->socket) {
 						$client = socket_accept($this->socket);
 						if($client ) {
-							require_once(MUD_LIB.'/obj/user.php');
+							require_once(MUD_LIB."/obj/user.php");
 							$user = new User_object($client);
 							$this->users[] = $user;
                                                         $this->sockets[] = $client;

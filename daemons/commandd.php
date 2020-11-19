@@ -46,18 +46,14 @@ class Commandd extends CommandControl {
 	}
 	function doCommand($user,$cmd) {
 		$cmd = trim($cmd);
-		print_r($cmd."\n");
 		if($user->get_temp("is_loging")) {
 			return $GLOBALS['app']->LOGIN_D->doLoginCmd($user,$cmd);
 		}
 		$verbs = explode(" ",$cmd);
-		print_r("doCommand() 1\n");
 		if($cmdOb = $this->findCmd($user,$verbs[0])) {
-		print_r("doCommand() 2\n");
 			$cmdOb->main($user,$verbs);
 			return 1;
 		} else if($this->doGlobalAlias($user,$verbs)) {
-		print_r("doCommand() 3\n");
 			return 1;
 		} else if(!strlen($cmd)){
 			return 1;
